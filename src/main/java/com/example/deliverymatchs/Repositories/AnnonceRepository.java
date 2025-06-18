@@ -1,4 +1,7 @@
 package com.example.deliverymatchs.Repositories;
 
-public interface AnnonceRepository {
+import com.example.deliverymatchs.Entitys.Annonce;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface AnnonceRepository extends JpaRepository<Annonce,Long> {
 }

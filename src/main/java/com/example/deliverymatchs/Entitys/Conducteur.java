@@ -1,4 +1,15 @@
 package com.example.deliverymatchs.Entitys;
 
-public class Conducteur {
+import jakarta.persistence.Entity;
+import jakarta.persistence.OneToMany;
+
+import java.util.List;
+
+@Entity
+
+public class Conducteur extends Utilisateurs{
+
+    @OneToMany(mappedBy = "conducteur")
+
+    private List<Annonce> annonces;
 }

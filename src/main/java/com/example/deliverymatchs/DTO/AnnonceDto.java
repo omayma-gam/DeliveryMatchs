@@ -1,23 +1,18 @@
-package com.example.deliverymatchs.Entitys;
+package com.example.deliverymatchs.DTO;
 
-import jakarta.persistence.*;
-
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Date;
-import java.util.List;
 
-@Entity
-public class Annonce {
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @Column(nullable = false)
-    private Long id;
-    private String lieu;
-    private String etaps;
-    private String destination;
-    private String demensionMax;
-    private String CapaciteDisponible;
-    private LocalDateTime date;
+
+public class AnnonceDto implements Serializable {
+    Long id;
+    String lieu;
+    String etaps;
+    String destination;
+    String demensionMax;
+    String CapaciteDisponible;
+    LocalDateTime date;
 
     public Long getId() {
         return id;
@@ -26,7 +21,6 @@ public class Annonce {
     public void setId(Long id) {
         this.id = id;
     }
-
 
     public String getLieu() {
         return lieu;
@@ -74,28 +68,5 @@ public class Annonce {
 
     public void setDate(LocalDateTime date) {
         this.date = date;
-    }
-
-    @ManyToOne
-    @JoinColumn(name = "conducteur-id")
-    private Conducteur conducteur;
-
-    @OneToMany(mappedBy = "annonce")
-    private List<Demande> demandes;
-
-    public Conducteur getConducteur() {
-        return conducteur;
-    }
-
-    public void setConducteur(Conducteur conducteur) {
-        this.conducteur = conducteur;
-    }
-
-    public List<Demande> getDemandes() {
-        return demandes;
-    }
-
-    public void setDemandes(List<Demande> demandes) {
-        this.demandes = demandes;
     }
 }
