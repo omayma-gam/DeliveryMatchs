@@ -1,23 +1,13 @@
 package com.example.deliverymatchs.Entitys;
 
 import jakarta.persistence.*;
+import lombok.Data;
 
 import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.List;
 
 @Entity
 public class Annonce {
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @Column(nullable = false)
-    private Long id;
-    private String lieu;
-    private String etaps;
-    private String destination;
-    private String demensionMax;
-    private String CapaciteDisponible;
-    private LocalDateTime date;
 
     public Long getId() {
         return id;
@@ -26,7 +16,6 @@ public class Annonce {
     public void setId(Long id) {
         this.id = id;
     }
-
 
     public String getLieu() {
         return lieu;
@@ -60,11 +49,11 @@ public class Annonce {
         this.demensionMax = demensionMax;
     }
 
-    public String getCapaciteDisponible() {
+    public Integer getCapaciteDisponible() {
         return CapaciteDisponible;
     }
 
-    public void setCapaciteDisponible(String capaciteDisponible) {
+    public void setCapaciteDisponible(Integer capaciteDisponible) {
         CapaciteDisponible = capaciteDisponible;
     }
 
@@ -75,13 +64,6 @@ public class Annonce {
     public void setDate(LocalDateTime date) {
         this.date = date;
     }
-
-    @ManyToOne
-    @JoinColumn(name = "conducteur-id")
-    private Conducteur conducteur;
-
-    @OneToMany(mappedBy = "annonce")
-    private List<Demande> demandes;
 
     public Conducteur getConducteur() {
         return conducteur;
@@ -98,4 +80,23 @@ public class Annonce {
     public void setDemandes(List<Demande> demandes) {
         this.demandes = demandes;
     }
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(nullable = false)
+    private Long id;
+    private String lieu;
+    private String etaps;
+    private String destination;
+    private String demensionMax;
+    private Integer CapaciteDisponible;
+    private LocalDateTime date;
+    @ManyToOne
+    @JoinColumn(name = "conducteur-id")
+    private Conducteur conducteur;
+
+    @OneToMany(mappedBy = "annonce")
+    private List<Demande> demandes;
+
+
 }

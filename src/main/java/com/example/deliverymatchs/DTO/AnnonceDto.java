@@ -2,7 +2,6 @@ package com.example.deliverymatchs.DTO;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.Date;
 
 
 public class AnnonceDto implements Serializable {
@@ -11,8 +10,9 @@ public class AnnonceDto implements Serializable {
     String etaps;
     String destination;
     String demensionMax;
-    String CapaciteDisponible;
+    Integer capaciteDisponible;
     LocalDateTime date;
+
 
     public Long getId() {
         return id;
@@ -54,12 +54,12 @@ public class AnnonceDto implements Serializable {
         this.demensionMax = demensionMax;
     }
 
-    public String getCapaciteDisponible() {
-        return CapaciteDisponible;
+    public Integer getCapaciteDisponible() {
+        return capaciteDisponible;
     }
 
-    public void setCapaciteDisponible(String capaciteDisponible) {
-        CapaciteDisponible = capaciteDisponible;
+    public void setCapaciteDisponible(Integer capaciteDisponible) {
+        this.capaciteDisponible = capaciteDisponible;
     }
 
     public LocalDateTime getDate() {

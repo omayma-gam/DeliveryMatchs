@@ -19,6 +19,8 @@ public class Utilisateurs implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(unique = true)
     private String email;
     private String name;
 
@@ -64,14 +66,18 @@ public class Utilisateurs implements UserDetails {
         this.password = password;
     }
 
+
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority("ROLE_"+ role.name()));
+        return List.of(new SimpleGrantedAuthority(role.name()));
     }
 
     public String getPassword() {
         return password;
     }
+
+
 
     @Override
     public String getUsername() {
@@ -97,4 +103,6 @@ public class Utilisateurs implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
+
+
 }

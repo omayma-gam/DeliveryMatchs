@@ -6,9 +6,11 @@ import java.io.Serializable;
 
 
 public class UtilisateursDto implements Serializable {
-    Long id;
+     Long id;
     String name;
     String email;
+    String password;
+
     Role role;
 
     public Long getId() {
@@ -46,5 +48,12 @@ public class UtilisateursDto implements Serializable {
         this.name = name;
     }
 
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
 }

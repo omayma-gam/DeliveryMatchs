@@ -9,9 +9,10 @@ import java.util.List;
 @Entity
 public class Demande {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false)
     private Long id;
+    @Enumerated(EnumType.STRING)
     private Statut statut;
     private Date dateDemande;
     private String dimension;

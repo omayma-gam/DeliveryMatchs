@@ -1,6 +1,7 @@
 package com.example.deliverymatchs.Config;
 
 
+import com.example.deliverymatchs.Entitys.Role;
 import com.example.deliverymatchs.Repositories.UtilisateurRepository;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -9,6 +10,7 @@ import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
@@ -27,12 +29,19 @@ public class SecurityConfiguration {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-                .csrf(csrf -> csrf.disable())
-                .authorizeHttpRequests( auth -> auth
+                .csrf(AbstractHttpConfigurer::disable)
+                .authorizeHttpRequests( auth -> auth   .requestMatchers("/swagger-ui.html").permitAll()
                         .requestMatchers("/api/v1/auth/**").permitAll()
-                        .requestMatchers("/Annonce/**").hasRole("ADMIN")
-                        .requestMatchers("/Demande/**").hasRole("ADMIN")
-                        .requestMatchers("/Annonce/**").hasRole("CONDUCTEUR")
+                        .requestMatchers(
+                                "/v3/api-docs/**",
+                                "/swagger-ui/**",
+                                "/swagger-ui.html"
+                        ).permitAll()
+                        .requestMatchers("/Annonce/**").hasAnyAuthority(Role.CONDUCTEUR.name(),Role.ADMIN.name())
+                        .requestMatchers("/Demande/**").hasAnyAuthority(Role.EXPEDITEREUR.name(),Role.ADMIN.name())
+                       // .requestMatchers("/Demande/**").hasRole("ADMIN")
+                       //
+                        // .requestMatchers("/Demande/**").hasRole("EXPEDITEUR")
 
                         .anyRequest()
                         .authenticated()
@@ -42,7 +51,8 @@ public class SecurityConfiguration {
                 )
                 .cors(Customizer.withDefaults())
                 .authenticationProvider(authenticationProvider)
-                .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);        return http.build();
+                .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
+        return http.build();
     }
 
 
