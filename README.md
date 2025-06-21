@@ -90,8 +90,9 @@ Couche	Technologies
 🗂️ Gestion complète des utilisateurs, annonces et demandes
 
 📊 Statistiques en temps réel avec graphiques interactifs
-
-
+--------------------------------------------------------------------------------------
+**_swagger_**
+http://localhost:8086/swagger-ui/index.html#/
 ------------------------------------------------------------------------------------
 
 ## UML
