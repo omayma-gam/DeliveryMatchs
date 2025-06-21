@@ -9,6 +9,38 @@ import java.util.List;
 @Entity
 public class Annonce {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(nullable = false)
+    private Long id;
+    private String lieu;
+    private String etaps;
+    private String destination;
+    private String demensionMax;
+    private Integer CapaciteDisponible;
+    private LocalDateTime date;
+    @ManyToOne
+    @JoinColumn(name = "conducteur-id")
+    private Conducteur conducteur;
+
+    @OneToMany(mappedBy = "annonce")
+    private List<Demande> demandes;
+
+    public Annonce() {
+    }
+
+    public Annonce(Long id, String lieu, String etaps, String destination, String demensionMax, Integer capaciteDisponible, LocalDateTime date, Conducteur conducteur, List<Demande> demandes) {
+        this.id = id;
+        this.lieu = lieu;
+        this.etaps = etaps;
+        this.destination = destination;
+        this.demensionMax = demensionMax;
+        this.CapaciteDisponible = capaciteDisponible;
+        this.date = date;
+        this.conducteur = conducteur;
+        this.demandes = demandes;
+    }
+
     public Long getId() {
         return id;
     }
@@ -81,22 +113,7 @@ public class Annonce {
         this.demandes = demandes;
     }
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(nullable = false)
-    private Long id;
-    private String lieu;
-    private String etaps;
-    private String destination;
-    private String demensionMax;
-    private Integer CapaciteDisponible;
-    private LocalDateTime date;
-    @ManyToOne
-    @JoinColumn(name = "conducteur-id")
-    private Conducteur conducteur;
 
-    @OneToMany(mappedBy = "annonce")
-    private List<Demande> demandes;
 
 
 }

@@ -1,9 +1,14 @@
 package com.example.deliverymatchs.DTO;
 
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
 
+@NoArgsConstructor
+@AllArgsConstructor
 public class AnnonceDto implements Serializable {
     Long id;
     String lieu;
@@ -69,4 +74,5 @@ public class AnnonceDto implements Serializable {
     public void setDate(LocalDateTime date) {
         this.date = date;
     }
+
 }

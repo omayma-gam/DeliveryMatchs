@@ -15,6 +15,7 @@ import java.util.List;
 @Inheritance(strategy = InheritanceType.JOINED)
 @AllArgsConstructor
 @NoArgsConstructor
+//@DiscriminatorColumn(name = "type_utilisateur")
 public class Utilisateurs implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

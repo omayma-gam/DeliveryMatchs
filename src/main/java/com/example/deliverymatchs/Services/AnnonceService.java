@@ -28,18 +28,26 @@ public class AnnonceService {
         this.utilisateurRepository = utilisateurRepository;
     }
 
-    public AnnonceDto AjouterAnnonce(AnnonceDto annonceDto){
+    public AnnonceDto AjouterAnnonce(AnnonceDto annonceDto) {
+        Annonce annonce = annonceMapper.dtoToAnnonce(annonceDto);
 
-        Annonce annonce=annonceMapper.dtoToAnnonce(annonceDto);
-        String email= SecurityContextHolder.getContext().getAuthentication().getName();
-        Conducteur conducteur=(Conducteur) utilisateurRepository.findByEmail(email);
-        annonce.setConducteur(conducteur);
-        Annonce annonce1=annonceRepository.save(annonce);
+        String email = SecurityContextHolder.getContext().getAuthentication().getName();
 
-        return annonceMapper.annonceToDto(annonce1);
+        Object user = utilisateurRepository.findByEmail(email);
+
+        if (user instanceof Conducteur) {
+            Conducteur conducteur = (Conducteur) user;
+            annonce.setConducteur(conducteur);
+        } else {
+            throw new RuntimeException("L'utilisateur connecté n'est pas un conducteur");
+        }
+
+        Annonce saved = annonceRepository.save(annonce);
+        return annonceMapper.annonceToDto(saved);
     }
 
-//    public TrajetDto ajouterAnnonce(TrajetDto dto){
+
+    //    public TrajetDto ajouterAnnonce(TrajetDto dto){
 //        Trajet trip = trajetMap.toEntity(dto);
 //
 //        String email = SecurityContextHolder.getContext().getAuthentication().getName();

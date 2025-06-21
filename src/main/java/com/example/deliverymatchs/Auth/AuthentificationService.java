@@ -32,7 +32,7 @@ public class AuthentificationService {
 
         switch (request.getRole()) {
 
-            case ADMIN -> utilisateurs = new Utilisateurs();
+            case ADMIN -> utilisateurs = new Admin();
             case CONDUCTEUR -> utilisateurs = new Conducteur();
             case EXPEDITEREUR -> utilisateurs = new Expediteur();
 
